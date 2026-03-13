@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Grant DAO dApp</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+<style>
+
+body{
+background: radial-gradient(circle at top,#4f46e5,#020617);
+min-height:100vh;
+}
+
+.card{
+background: rgba(255,255,255,0.05);
+backdrop-filter: blur(20px);
+border:1px solid rgba(255,255,255,0.1);
+}
+
+.btn{
+transition:0.3s;
+}
+
+.btn:hover{
+transform:translateY(-3px) scale(1.04);
+box-shadow:0 15px 30px rgba(0,0,0,0.4);
+}
+
+</style>
+
+</head>
+
+<body class="flex justify-center p-6">
+
+<div class="max-w-6xl w-full">
+
+<!-- HEADER -->
+
+<div class="text-center mb-10">
+
+<h1 class="text-5xl font-bold text-white mb-3">
+Grant DAO
+</h1>
+
+<p class="text-white/70 text-lg">
+ICO Mini-Grants • Vote Projects • Fund Community
+</p>
+
+</div>
+
+
+<!-- WALLET -->
+
+<div class="card rounded-3xl p-8 mb-8">
+
+<div class="flex justify-between items-center mb-6">
+
+<h2 class="text-2xl text-white font-bold">
+Wallet
+</h2>
+
+<div id="network-name"
+class="px-4 py-1 rounded-full bg-blue-500/20 text-blue-300 text-sm">
+
+Hardhat Local
+
+</div>
+
+</div>
+
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+
+<div>
+<p class="text-white/50 text-sm">Address</p>
+<p id="wallet-address" class="text-white font-semibold">-</p>
+</div>
+
+<div>
+<p class="text-white/50 text-sm">ETH Balance</p>
+<p id="wallet-balance" class="text-green-400 text-xl font-bold">0</p>
+</div>
+
+<div>
+<p class="text-white/50 text-sm">GRANT Balance</p>
+<p id="grant-balance" class="text-yellow-400 text-xl font-bold">0</p>
+</div>
+
+<div>
+<p class="text-white/50 text-sm">Status</p>
+<p id="wallet-status-text" class="text-white">Not connected</p>
+</div>
+
+</div>
+
+
+<div class="flex justify-center gap-6 mt-8">
+
+<button id="connect-btn"
+onclick="connectWallet()"
+class="btn bg-emerald-500 px-8 py-3 rounded-xl text-white font-semibold">
+
+<i class="fab fa-ethereum mr-2"></i>
+Connect MetaMask
+
+</button>
+
+<button id="disconnect-btn"
+onclick="disconnectWallet()"
+class="btn bg-slate-700 px-8 py-3 rounded-xl text-white hidden">
+
+Disconnect
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ICO STATS -->
+
+<div class="card rounded-3xl p-8 mb-8 text-center">
+
+<h2 class="text-2xl text-white font-bold mb-4">
+ICO Stats
+</h2>
+
+<p class="text-white/70 mb-2">
+
+Total Raised:
+<span id="total-raised" class="text-yellow-400 font-bold">
+
+0 ETH
+
+</span>
+
+</p>
+
+<p class="text-white/70">
+
+Token Rate:
+<span class="text-green-400 font-bold">
+
+1000 GRANT / ETH
+
+</span>
+
+</p>
+
+</div>
+
+
+<!-- ACTIONS -->
+
+<div id="action-buttons"
+class="grid md:grid-cols-2 gap-6 mb-10 hidden">
+
+
+<!-- BUY -->
+
+<div onclick="buyTokens()"
+class="card rounded-2xl p-6 text-center cursor-pointer hover:bg-white/10">
+
+<i class="fas fa-coins text-4xl text-yellow-400 mb-4"></i>
+
+<h3 class="text-xl text-white font-bold mb-2">
+Buy GRANT
+</h3>
+
+<p class="text-white/60 text-sm">
+Send 0.1 ETH to receive GRANT tokens
+</p>
+
+</div>
+
+
+<!-- CREATE PROJECT -->
+
+<div onclick="createProject()"
+class="card rounded-2xl p-6 text-center cursor-pointer hover:bg-white/10">
+
+<i class="fas fa-plus text-4xl text-green-400 mb-4"></i>
+
+<h3 class="text-xl text-white font-bold mb-2">
+Create Project
+</h3>
+
+<p class="text-white/60 text-sm">
+Submit new mini-grant proposal
+</p>
+
+</div>
+
+</div>
+
+
+<!-- PROJECT LIST -->
+
+<div class="card rounded-3xl p-8">
+
+<h2 class="text-2xl text-white font-bold mb-6">
+Mini-Grant Projects
+</h2>
+
+<div id="projects-list" class="grid md:grid-cols-2 gap-6">
+
+<!-- JS render projects -->
+
+</div>
+
+</div>
+
+<!-- FUNDING HISTORY -->
+
+<div class="card rounded-3xl p-8 mt-8">
+<h2 class="text-2xl text-white font-bold mb-6">
+Funding History
+</h2>
+<div id="fundings-list" class="space-y-4 text-white/80">
+<!-- JS render fundings -->
+</div>
+</div>
+
+
+<!-- TX STATUS -->
+
+<div id="tx-status"
+class="card rounded-2xl p-6 mt-8">
+
+<h4 class="text-white font-semibold mb-2">
+
+Transaction Status
+
+</h4>
+
+<p id="status-message"
+class="text-white/80">
+
+Waiting for action...
+
+</p>
+
+</div>
+
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+
+</html>
