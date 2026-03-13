@@ -1,14 +1,19 @@
-# Production UI Redeploy - TODO
+# Frontend Modular Refactor TODO
 
-## ✅ Completed
-- [x] Create TODO.md from approved plan
+Status: 0/11 complete
 
+## Steps:
 
-- [ ] Step 1: Backup current files
-- [ ] Step 2: Redesign index.html (professional dashboard)
-- [ ] Step 3: Enhance app.js (dynamic projects, charts, forms)
-- [ ] Step 4: Test responsive + live-server
-- [ ] Step 5: Theme toggle + animations
-- [ ] Step 6: Deploy verification
+- [x] 1. Create `project/css/styles.css` (extract inline styles)
+- [x] 2. Create `project/js/config.js`
+- [x] 3. Create `project/js/abi.js`
+- [x] 4. Create `project/js/utils.js`
+- [x] 5. Create `project/js/wallet.js`
+- [x] 6. Create `project/js/projects.js`
+- [x] 7. Create `project/js/ui.js`
+- [x] 8. Create `project/js/main.js`
+- [x] 9. Edit `project/index.html` (link new files, remove app.js)
+- [x] 10. Test: Open index.html (with Hardhat running)
+- [ ] 11. Git add/commit/push changes
 
-## Next: Backup files → Edit UI
+Next: CSS extraction.

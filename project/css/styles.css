@@ -1,0 +1,20 @@
+body {
+  background: radial-gradient(circle at top, #4f46e5, #020617);
+  min-height: 100vh;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn {
+  transition: 0.3s;
+}
+
+.btn:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
